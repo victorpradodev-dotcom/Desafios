@@ -1,0 +1,107 @@
+
+
+
+
+#Calculadora Simples
+num1 = float(input("Digite o primeiro número: "))
+operador = input("Digite a operação (+, -, *, /): ")
+num2 = float(input("Digite o segundo número: "))
+
+if operador == "+":
+    resultado = num1 + num2
+elif operador == "-":
+    resultado = num1 - num2
+elif operador == "*":
+    resultado = num1 * num2
+elif operador == "/":
+    resultado = num1 / num2
+else:
+    resultado = "Operação inválida"
+
+print("Resultado:", resultado)
+
+
+#Automação de Média de Notas
+quantidade = int(input("Quantas notas deseja inserir? "))
+
+soma = 0
+
+for i in range(quantidade):
+    nota = float(input(f"Digite a nota {i+1}: "))
+    soma += nota
+
+media = soma / quantidade
+
+print("Média final:", media)
+
+
+#Tabuada Automática
+numero = int(input("Digite um número: "))
+
+for i in range(1, 11):
+    print(f"{numero} x {i} = {numero * i}")
+
+
+#Juros Compostos
+capital = float(input("Capital inicial: "))
+taxa = float(input("Taxa de juros (%): "))
+tempo = int(input("Tempo em meses: "))
+
+montante = capital * (1 + taxa / 100) ** tempo
+
+print(f"Montante final: R$ {montante:.2f}")
+
+
+#Conversor de Temperatura
+celsius = float(input("Temperatura em Celsius: "))
+
+fahrenheit = (celsius * 9/5) + 32
+
+print(f"{celsius}°C = {fahrenheit}°F")
+
+#Automação de Porcentagem
+valor = float(input("Digite o valor: "))
+porcentagem = float(input("Digite a porcentagem: "))
+
+resultado = valor * (porcentagem / 100)
+
+print(f"{porcentagem}% de {valor} é {resultado}")
+
+
+#Soma Automática de Lista
+numeros = [10, 20, 30, 40, 50]
+
+total = sum(numeros)
+
+print("Soma total:", total)
+
+
+#Calculadora de IMC
+peso = float(input("Digite seu peso: "))
+altura = float(input("Digite sua altura: "))
+
+imc = peso / (altura ** 2)
+
+print(f"Seu IMC é {imc:.2f}")
+
+
+
+#Automação com Funções
+def somar(a, b):
+    return a + b
+
+def multiplicar(a, b):
+    return a * b
+
+print(somar(10, 5))
+print(multiplicar(4, 8))
+
+
+#Calculadora Científica
+import math
+
+numero = float(input("Digite um número: "))
+
+print("Raiz quadrada:", math.sqrt(numero))
+print("Potência ao quadrado:", math.pow(numero, 2))
+print("Seno:", math.sin(numero))

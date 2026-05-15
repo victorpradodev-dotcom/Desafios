@@ -1,0 +1,153 @@
+import requests
+
+url = "https://jsonplaceholder.typicode.com/posts/1"
+
+resposta = requests.get(url)
+
+dados = resposta.json()
+
+print(dados)
+
+
+
+import requests
+
+cep = input("Digite o CEP: ")
+
+url = f"https://viacep.com.br/ws/{cep}/json/"
+
+resposta = requests.get(url)
+
+dados = resposta.json()
+
+print("Cidade:", dados["localidade"])
+print("Estado:", dados["uf"])
+print("Bairro:", dados["bairro"])
+
+
+
+import requests
+
+cidade = "Suzano"
+
+url = f"https://wttr.in/{cidade}?format=j1"
+
+resposta = requests.get(url)
+
+dados = resposta.json()
+
+temperatura = dados["current_condition"][0]["temp_C"]
+
+print("Temperatura:", temperatura, "°C")
+
+
+
+import requests
+
+url = "https://api.exemplo.com/usuarios"
+
+headers = {
+    "Authorization": "Bearer SEU_TOKEN_AQUI"
+}
+
+resposta = requests.get(url, headers=headers)
+
+print(resposta.json())
+
+
+import requests
+
+url = "https://jsonplaceholder.typicode.com/posts"
+
+dados = {
+    "title": "Meu Post",
+    "body": "Conteúdo teste",
+    "userId": 1
+}
+
+resposta = requests.post(url, json=dados)
+
+print(resposta.json())
+
+
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def inicio():
+    return {"mensagem": "API funcionando"}
+
+@app.route("/soma/<int:a>/<int:b>")
+def soma(a, b):
+    return {"resultado": a + b}
+
+app.run(debug=True)
+
+
+
+from flask import Flask
+import sqlite3
+
+app = Flask(__name__)
+
+@app.route("/usuarios")
+def usuarios():
+
+    conexao = sqlite3.connect("banco.db")
+
+    cursor = conexao.cursor()
+
+    cursor.execute("SELECT * FROM usuarios")
+
+    dados = cursor.fetchall()
+
+    return {"usuarios": dados}
+
+app.run(debug=True)
+
+
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"mensagem": "API FastAPI funcionando"}
+
+@app.get("/produto/{id}")
+def produto(id: int):
+    return {
+        "id": id,
+        "nome": "Notebook",
+        "preco": 3500
+    }
+
+
+
+from openai import OpenAI
+
+client = OpenAI(api_key="SUA_API_KEY")
+
+resposta = client.chat.completions.create(
+    model="gpt-4.1-mini",
+    messages=[
+        {"role": "user", "content": "Olá"}
+    ]
+)
+
+print(resposta.choices[0].message.content)
+
+
+
+import requests
+
+url = "https://economia.awesomeapi.com.br/json/last/USD-BRL"
+
+resposta = requests.get(url)
+
+dados = resposta.json()
+
+print("Dólar:", dados["USDBRL"]["bid"])
