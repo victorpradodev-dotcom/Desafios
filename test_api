@@ -1,0 +1,48 @@
+import graphene
+
+class Produto(graphene.ObjectType):
+    id = graphene.Int()
+    nome = graphene.String()
+    preco = graphene.Float()
+produtos = [
+    {"id": 1, "nome": "Camiseta", "preco": 50.00},
+    {"id": 2, "nome": "Tênis", "preco": 120.00}
+]
+
+class Query(graphene.ObjectType):
+    produto = graphene.Field(Produto, id=graphene.Int())
+    produtos = graphene.List(Produto)
+
+    def resolve_produto(root, info, id):
+        return next((p for p in produtos if p['id'] == id), None)
+
+    def resolve_produtos(root, info):
+        return produtos
+
+class AdicionarProduto(graphene.Mutation):
+    class Arguments:
+        nome = graphene.String(required=True)
+        preco = graphene.Float(required=True)
+
+    produto = graphene.Field(Produto)
+
+    def mutate(root, info, nome, preco):
+        novo_produto = {"id": len(produtos) + 1, "nome": nome, "preco": preco}
+        produtos.append(novo_produto)
+        return AdicionarProduto(produto=novo_produto)
+
+class Mutation(graphene.ObjectType):
+    adicionar_produto = AdicionarProduto.Field()
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
+
+from flask import Flask, request
+from flask_graphql import GraphQLView
+
+app = Flask(__name__)
+app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=True))
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
